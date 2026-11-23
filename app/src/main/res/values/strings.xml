@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Nexora AI</string>
+    <string name="app_tagline">One AI. Infinite Possibilities.</string>
+    <string name="sign_in_with_google">Continue with Google</string>
+    <string name="auth_privacy_note">Secured with Google Sign-In and Firebase zero-trust per-user isolation. Your chats and memories remain strictly private to your account.</string>
+    <string name="offline_banner">Offline mode — Cached chats are readable. Queued prompts will send automatically when internet returns.</string>
+    <string name="new_conversation">New Chat</string>
+    <string name="chat_placeholder">Ask Nexora AI anything…</string>
+    <string name="stop_generating">Stop generating</string>
+    <string name="nav_chat">Chat</string>
+    <string name="nav_history">History</string>
+    <string name="nav_studio">Studio</string>
+    <string name="nav_assistants">Assistants</string>
+    <string name="nav_models">Explore Models</string>
+    <string name="nav_image_gen">Image Studio</string>
+    <string name="nav_file_analysis">File Analysis</string>
+    <string name="nav_web_research">Web Research</string>
+    <string name="nav_memory">Memory</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_notifications">Notifications</string>
+    <string name="nav_help">Help &amp; Feedback</string>
+    <string name="cd_open_drawer">Open navigation drawer</string>
+    <string name="cd_new_chat">Start a new conversation</string>
+    <string name="cd_send_message">Send message</string>
+    <string name="cd_voice_input">Voice dictation</string>
+    <string name="cd_voice_mode">Hands-free voice conversation</string>
+    <string name="cd_attach_file">Attach image or document</string>
+    <string name="cd_copy_text">Copy response</string>
+    <string name="cd_regenerate">Regenerate response</string>
+    <string name="cd_speak">Read aloud</string>
+    <string name="cd_share">Share</string>
+</resources>

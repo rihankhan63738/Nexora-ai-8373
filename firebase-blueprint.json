@@ -1,0 +1,225 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Authenticated user profile, preferences, model settings, and real usage statistics.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Firebase Auth UID matching document ID." },
+        "displayName": { "type": "string", "description": "User display name." },
+        "email": { "type": "string", "description": "User email address (private to owner)." },
+        "photoUrl": { "type": "string", "description": "Optional profile avatar URL." },
+        "bio": { "type": "string", "description": "Optional user bio." },
+        "preferredModel": { "type": "string", "description": "Default AI model identifier." },
+        "themeMode": { "type": "string", "enum": ["SYSTEM", "DARK", "LIGHT"], "description": "Theme preference." },
+        "language": { "type": "string", "description": "Preferred UI and response language." },
+        "memoryEnabled": { "type": "boolean", "description": "Global toggle for personalized AI memory." },
+        "voiceEnabled": { "type": "boolean", "description": "Whether TTS voice responses are enabled." },
+        "voiceAutoSpeak": { "type": "boolean", "description": "Whether assistant replies speak automatically." },
+        "voiceName": { "type": "string", "description": "Selected device TTS voice name." },
+        "voiceRate": { "type": "number", "description": "Speech rate multiplier (0.5 to 2.0)." },
+        "voicePitch": { "type": "number", "description": "Speech pitch multiplier (0.5 to 2.0)." },
+        "notificationsEnabled": { "type": "boolean", "description": "In-app notifications toggle." },
+        "temperature": { "type": "number", "description": "Default model temperature (0.0 to 2.0)." },
+        "maxOutputTokens": { "type": "integer", "description": "Default maximum output tokens." },
+        "totalPromptTokens": { "type": "integer", "description": "Cumulative real prompt tokens." },
+        "totalOutputTokens": { "type": "integer", "description": "Cumulative real output tokens." },
+        "totalRequests": { "type": "integer", "description": "Cumulative real AI requests." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp set via FieldValue.serverTimestamp()." }
+      },
+      "required": [
+        "userId",
+        "displayName",
+        "email",
+        "preferredModel",
+        "themeMode",
+        "language",
+        "memoryEnabled",
+        "voiceEnabled",
+        "voiceAutoSpeak",
+        "voiceRate",
+        "voicePitch",
+        "notificationsEnabled",
+        "temperature",
+        "maxOutputTokens",
+        "totalPromptTokens",
+        "totalOutputTokens",
+        "totalRequests",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "ChatFolder": {
+      "title": "ChatFolder",
+      "description": "User-created folder for organizing conversations.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Owner Firebase UID." },
+        "name": { "type": "string", "description": "Folder name." },
+        "colorHex": { "type": "string", "description": "Accent hex color." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp." }
+      },
+      "required": ["userId", "name", "colorHex", "createdAt", "updatedAt"]
+    },
+    "Conversation": {
+      "title": "Conversation",
+      "description": "AI conversation thread metadata.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Owner Firebase UID." },
+        "title": { "type": "string", "description": "Conversation title." },
+        "modelId": { "type": "string", "description": "Active model identifier." },
+        "assistantId": { "type": "string", "description": "Optional custom assistant ID." },
+        "assistantName": { "type": "string", "description": "Optional custom assistant display name." },
+        "folderId": { "type": "string", "description": "Optional folder ID." },
+        "pinned": { "type": "boolean", "description": "Pinned to top of history." },
+        "mode": { "type": "string", "enum": ["CHAT", "RESEARCH", "FILE", "MATH", "CODE", "TRANSLATE", "WRITING"], "description": "Conversation mode." },
+        "lastMessagePreview": { "type": "string", "description": "Short preview of latest message." },
+        "messageCount": { "type": "integer", "description": "Number of messages in conversation." },
+        "shareCode": { "type": "string", "description": "Optional share reference code." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp." }
+      },
+      "required": ["userId", "title", "modelId", "pinned", "mode", "lastMessagePreview", "messageCount", "createdAt", "updatedAt"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Single user or assistant turn within a conversation.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Owner Firebase UID." },
+        "conversationId": { "type": "string", "description": "Parent conversation ID." },
+        "role": { "type": "string", "enum": ["user", "assistant", "system"], "description": "Sender role." },
+        "content": { "type": "string", "description": "Markdown message content." },
+        "modelId": { "type": "string", "description": "Optional model used for assistant reply." },
+        "attachmentName": { "type": "string", "description": "Optional attached file or image name." },
+        "attachmentMime": { "type": "string", "description": "Optional attached MIME type." },
+        "sources": { "type": "array", "description": "Optional list of grounded web citation strings (max 20)." },
+        "promptTokens": { "type": "integer", "description": "Prompt tokens reported for turn." },
+        "outputTokens": { "type": "integer", "description": "Output tokens reported for turn." },
+        "edited": { "type": "boolean", "description": "Whether message was edited." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp." }
+      },
+      "required": ["userId", "conversationId", "role", "content", "promptTokens", "outputTokens", "edited", "createdAt", "updatedAt"]
+    },
+    "CustomAssistant": {
+      "title": "CustomAssistant",
+      "description": "User-configured or template custom AI assistant.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Owner Firebase UID." },
+        "name": { "type": "string", "description": "Assistant name." },
+        "tagline": { "type": "string", "description": "Short subtitle." },
+        "personality": { "type": "string", "description": "Tone and persona description." },
+        "systemInstructions": { "type": "string", "description": "Custom system prompt instructions." },
+        "modelId": { "type": "string", "description": "Assigned AI model." },
+        "iconName": { "type": "string", "description": "Icon identifier." },
+        "starterPrompt": { "type": "string", "description": "Example starter prompt." },
+        "builtIn": { "type": "boolean", "description": "Whether seeded as starter template." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp." }
+      },
+      "required": ["userId", "name", "tagline", "personality", "systemInstructions", "modelId", "iconName", "starterPrompt", "builtIn", "createdAt", "updatedAt"]
+    },
+    "MemoryRecord": {
+      "title": "MemoryRecord",
+      "description": "User-controlled persistent AI memory item.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Owner Firebase UID." },
+        "category": { "type": "string", "enum": ["PREFERENCE", "FACT", "WORK", "STYLE", "CUSTOM"], "description": "Memory category." },
+        "content": { "type": "string", "description": "Remembered detail text." },
+        "active": { "type": "boolean", "description": "Whether injected into AI context." },
+        "consentConfirmed": { "type": "boolean", "description": "Explicit user consent flag." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp." }
+      },
+      "required": ["userId", "category", "content", "active", "consentConfirmed", "createdAt", "updatedAt"]
+    },
+    "GeneratedImageRecord": {
+      "title": "GeneratedImageRecord",
+      "description": "Metadata record for a runtime AI generated image stored locally on device.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Owner Firebase UID." },
+        "prompt": { "type": "string", "description": "User image prompt." },
+        "style": { "type": "string", "description": "Selected visual style preset." },
+        "aspectRatio": { "type": "string", "description": "Aspect ratio identifier." },
+        "modelId": { "type": "string", "description": "Image model used." },
+        "localFilePath": { "type": "string", "description": "Local app-private file path to rendered PNG." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp." }
+      },
+      "required": ["userId", "prompt", "style", "aspectRatio", "modelId", "localFilePath", "createdAt"]
+    },
+    "AppNotification": {
+      "title": "AppNotification",
+      "description": "User-scoped in-app notification record.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Owner Firebase UID." },
+        "title": { "type": "string", "description": "Notification headline." },
+        "body": { "type": "string", "description": "Notification message body." },
+        "category": { "type": "string", "enum": ["SYSTEM", "AI", "MEMORY", "SECURITY"], "description": "Notification type." },
+        "read": { "type": "boolean", "description": "Whether user has read notification." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp." }
+      },
+      "required": ["userId", "title", "body", "category", "read", "createdAt", "updatedAt"]
+    },
+    "FeedbackEntry": {
+      "title": "FeedbackEntry",
+      "description": "User help and feedback submission.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Owner Firebase UID." },
+        "category": { "type": "string", "description": "Feedback category." },
+        "subject": { "type": "string", "description": "Short subject line." },
+        "message": { "type": "string", "description": "Detailed feedback message." },
+        "rating": { "type": "integer", "description": "Rating from 1 to 5." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp." }
+      },
+      "required": ["userId", "category", "subject", "message", "rating", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Private user profile, settings, and real AI usage counters."
+    },
+    "/users/{userId}/folders/{folderId}": {
+      "schema": { "$ref": "#/entities/ChatFolder" },
+      "description": "Folders created by the user to organize conversations."
+    },
+    "/users/{userId}/conversations/{conversationId}": {
+      "schema": { "$ref": "#/entities/Conversation" },
+      "description": "User-scoped AI chat conversations."
+    },
+    "/users/{userId}/conversations/{conversationId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/ChatMessage" },
+      "description": "Messages inside a user's conversation."
+    },
+    "/users/{userId}/assistants/{assistantId}": {
+      "schema": { "$ref": "#/entities/CustomAssistant" },
+      "description": "User-scoped custom AI assistants."
+    },
+    "/users/{userId}/memories/{memoryId}": {
+      "schema": { "$ref": "#/entities/MemoryRecord" },
+      "description": "User-controlled AI memory records."
+    },
+    "/users/{userId}/generated_images/{imageId}": {
+      "schema": { "$ref": "#/entities/GeneratedImageRecord" },
+      "description": "History of runtime AI generated images."
+    },
+    "/users/{userId}/notifications/{notificationId}": {
+      "schema": { "$ref": "#/entities/AppNotification" },
+      "description": "In-app notifications for the user."
+    },
+    "/users/{userId}/feedback/{feedbackId}": {
+      "schema": { "$ref": "#/entities/FeedbackEntry" },
+      "description": "Help and feedback submissions by the user."
+    }
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Nexora AI",
+  "description": "One AI. Infinite Possibilities. Multi-model AI assistant with streaming chat, multimodal image & document analysis, web research, image generation, voice, custom assistants, and user-controlled memory.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
